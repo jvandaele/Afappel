@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Justifier une absence </h1>
+
+    <form action="{{ path('admin.absences.justifySubmit') }}" method="post" class="p-3 mb-2 bg-light" style="border-radius:5px;">
+        <input name="id" type="hidden" value="{{ absence.id }}">
+        <div class="row d-flex justify-content-center m-3">
+            <textarea name="justification" class="form-control" style="width:auto;"></textarea>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Justifier</button>
+        </div>
+    </form>
+
+{% endblock %}

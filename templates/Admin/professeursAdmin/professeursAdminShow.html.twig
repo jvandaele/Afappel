@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Professeur : {{ professeur.prenomProfesseur }} {{ professeur.nomProfesseur }} </h1>
+
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">ARPEGE : {{ professeur.arpege }}</li>
+            <li class="list-group-item">Email : {{ professeur.emailProfesseur }}</li>
+            <li class="list-group-item">Date de naissance : {{ professeur.dateNaissance }}</li>
+        </ul>
+    </div>
+
+    <h2 style="margin-top:20px;">Matières</h2>
+    <div>
+        {% if professeur.matieres is empty %}
+            <strong>Aucune matière n'est rattachée à ce professeur pour le moment</strong>
+        {% else %}
+            <table class="table">
+                <thead class="table-dark">
+                <td>Nom</td>
+                <td>Opérations</td>
+                </thead>
+                <tbody>
+                {% for matiere in professeur.matieres %}
+                    <tr class="bg-light">
+                        <td>{{ matiere.nomMatiere }}</td>
+                        <td>
+                            <a href="{{ path('admin.matieres.show',{'id': matiere.id}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <h2 style="margin-top:20px;">Séances</h2>
+    <div>
+        {% if professeur.seances is empty %}
+            <strong>Il n'y a aucune séance rattachée à ce professeur pour le moment</strong>
+        {% else %}
+            <table class="table">
+                <thead class="table-dark">
+                <td>Date</td>
+                <td>Matière</td>
+                <td>Groupes</td>
+                <td>Nombre d'absences</td>
+                <td>Opérations</td>
+                </thead>
+                <tbody>
+                {% for seance in professeur.seances %}
+                    <tr class="bg-light">
+                        <td>{{ seance.date }}</td>
+                        <td>{{ seance.matiere.nomMatiere }}</td>
+                        <td>
+                            {% for groupe in seance.groupes %}
+                                {{ groupe.nomGroupe }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ seance.absences|length }}</td>
+                        <td>
+                            <a href="{{ path('admin.seances.show',{'id': seance.id}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}

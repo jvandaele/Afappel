@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1> Détails de la séance </h1>
+    {% if nope %}
+        <strong>Vous n'avez pas donné ce cours.</strong>
+    {% else %}
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">Date : {{ seance.date }}</li>
+                <li class="list-group-item">Matière : {{ seance.matiere.nomMatiere }}</li>
+                <li class="list-group-item">Groupes :
+                    {% for groupe in seance.groupes %}
+                        {{ groupe.nomGroupe }}
+                    {% endfor %}
+                </li>
+                <li class="list-group-item">Nombre d'étudiants absents : {{ seance.absences|length }}</li>
+            </ul>
+        </div>
+        <div style="margin-top:20px;">
+            <table class="table">
+                <thead class="table-dark">
+                <td>Étudiant</td>
+                <td>Justification</td>
+                </thead>
+                <tbody class="bg-light">
+                {% for absence in seance.absences %}
+                    <tr>
+                        <td>{{ absence.etudiant.prenomEtudiant }} {{ absence.etudiant.nomEtudiant }}</td>
+                        <td>
+                            {% if absence.justifiee %}
+                                {{ absence.justification }}
+                            {% else %}
+                                <i class="text-danger">Absence injustifiée</i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

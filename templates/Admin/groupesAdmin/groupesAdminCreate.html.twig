@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Créer un groupe </h1>
+
+    <form action="{{ path('admin.groupes.createSubmit') }}" method="post">
+        <div class="row d-flex justify-content-center m-1 p-3 bg-light" style="border-radius:5px;">
+            <div class="col d-flex flex-column m-1">
+                <label>Nom</label>
+                <input type="text" name="nomGroupe" required>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <h3>Veuillez selectionner les classes rattachées à ce groupe</h3>
+            <input type="hidden" name="nbClasses" value="{{ classes|length }}">
+            <table class="table">
+                <thead class="table-dark">
+                <td>Nom</td>
+                <td>Ajouter</td>
+                </thead>
+                <tbody>
+                {% for classe in classes %}
+                    <tr class="bg-light">
+                        <td><input type="hidden" name="{{ 'idClasse' ~ loop.index0 }}" value="{{ classe.id }}"> {{ classe.nomClasse }}</td>
+                        <td><input type="checkbox" name="{{ 'classe' ~ loop.index0 }}"></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Continuer</button>
+        </div>
+    </form>
+
+{% endblock %}

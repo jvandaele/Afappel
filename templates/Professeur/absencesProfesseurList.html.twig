@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1> Absences </h1>
+    {% if matieres is empty %}
+        <strong>Vous n'enseignez aucune matière pour le moment, vous ne pouvez donc pas visualiser les absences.</strong>
+    {% else %}
+        <form action="{{ path('professeur.absences') }}" method="post" class="p-3 mb-2 bg-light" style="border-radius:5px;">
+            <div class="row d-flex justify-content-center m-3">
+                <select name="matiere" class="form-select">
+                    {% for matiere in matieres %}
+                        <option value="{{ matiere.id }}">{{ matiere.nomMatiere }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row d-flex justify-content-center m-3">
+                <button type="submit" class="btn btn-success m-1">Consulter</button>
+            </div>
+        </form>
+        {% if etudiants is empty %}
+            <strong>Aucun étudiant n'a été absent dans cette matière durant ce semestre.</strong>
+        {% else %}
+            <h2 style="margin-top:20px;">Absences dans la matière : {{ matiere.nomMatiere }}</h2>
+            <table class="table">
+                <thead class="table-dark">
+                <td>Étudiant</td>
+                <td>Nombre d'absences</td>
+                <td>Dont justifiées</td>
+                </thead>
+                <tbody>
+                {% for etudiant in etudiants %}
+                    <tr class="bg-light">
+                        <td>{{ etudiant.prenomEtudiant }} {{ etudiant.nomEtudiant }}</td>
+                        <td{% if nbAbsences[loop.index0] > 1 %} style="color:red;font-weight:bold;" {% endif %}>
+                            {{ nbAbsences[loop.index0] }}
+                        </td>
+                        <td>{{ nbAbsencesJustifiees[loop.index0] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endif %}
+{% endblock %}

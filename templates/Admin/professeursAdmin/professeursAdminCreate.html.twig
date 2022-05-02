@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Créer un professeur </h1>
+
+    <form action="{{ path('admin.professeurs.createSubmit') }}" class="p-3 mb-2 bg-light" method="post" style="border-radius:5px;">
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <div class="col d-flex flex-column m-1">
+                <label for="arpege">ARPEGE</label>
+                <input type="text" name="arpege" required>
+            </div>
+            <div class="col d-flex flex-column m-1">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" required>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <div class="col d-flex flex-column m-1">
+                <label for="prenomProfesseur">Prénom</label>
+                <input type="text" name="prenomProfesseur" required>
+            </div>
+            <div class="col d-flex flex-column m-1">
+                <label for="nomProfesseur">Nom</label>
+                <input type="text" name="nomProfesseur" required>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <div class="col d-flex flex-column m-1">
+                <label for="emailProfesseur">Email</label>
+                <input type="email" name="emailProfesseur" required>
+            </div>
+            <div class="col d-flex flex-column m-1">
+                <label for="dateNaissanceProfesseur">Date de naissance</label>
+                <input type="date" value="01-01-1000" name="dateNaissanceProfesseur" required>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Créer</button>
+        </div>
+    </form>
+
+{% endblock %}

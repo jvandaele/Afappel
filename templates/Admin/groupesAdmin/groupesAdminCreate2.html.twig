@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Créer un groupe </h1>
+
+    <form action="{{ path('admin.groupes.createFinal') }}" method="post" style="border-radius:5px;">
+        <input type="hidden" name="nomGroupe" value="{{ nomGroupe }}">
+        <input type="hidden" name="nbClasses" value="{{ classes|length }}">
+        {% for classe in classes %}
+            <input type="hidden" name="{{ 'classe' ~ loop.index0 }}" value="{{ classe.id }}">
+        {% endfor %}
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <h3>Veuillez selectionner les étudiants rattachées à ce groupe</h3>
+            <input type="hidden" name="nbEtudiants" value="{{ etudiants|length }}">
+            <table class="table">
+                <thead class="table-dark">
+                <td>Nom</td>
+                <td>Ajouter</td>
+                </thead>
+                <tbody>
+                {% for etudiant in etudiants %}
+                    <tr class="bg-light">
+                        <td><input type="hidden" name="{{ 'idEtudiant' ~ loop.index0 }}" value="{{ etudiant.id }}">{{ etudiant.prenomEtudiant }} {{ etudiant.nomEtudiant }}</td>
+                        <td><input type="checkbox" name="{{ 'etudiant' ~ loop.index0 }}"></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Créer</button>
+        </div>
+    </form>
+
+{% endblock %}

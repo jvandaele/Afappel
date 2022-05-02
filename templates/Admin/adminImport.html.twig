@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1> Import de données </h1>
+    <div class="p-3 mb-2 bg-light" style="border-radius:5px;">
+        <div class="row d-flex justify-content-center m-1">
+            ATTENTION : Avant de déposer votre fichier, assurez-vous qu'il a exactement la même mise en forme que l'exemple fourni ici :
+        </div>
+        <div class="row d-flex justify-content-center m-1">
+            <a href="{{ path('admin.download') }}">Télécharger l'exemple</a>
+        </div>
+    </div>
+    <div class="p-3 mb-2 bg-light" style="border-radius:5px;">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col d-flex flex-column m-1">
+                {{ form_label(form.promotion) }}
+                {{ form_widget(form.promotion) }}
+            </div>
+            <div class="col d-flex flex-column m-1">
+                {{ form_label(form.tableau) }}
+                {{ form_widget(form.tableau) }}
+                {{ form_errors(form.tableau) }}
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Importer</button>
+        </div>
+        <div class="row d-flex justify-content-center m-1">
+            L'import de données peut prendre plusieurs minutes, lors de l'exécution de celui-ci ne quittez pas l'onglet actuel et ne fermez pas votre navigateur.
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

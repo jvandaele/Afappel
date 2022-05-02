@@ -1,0 +1,86 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <div class="container">
+        <h1> Absences </h1>
+    </div>
+
+    <div class="container p-3 mb-2 bg-light" style="border-radius:5px;">
+        <form action="{{ path('etudiant.absences') }}" method="post">
+            <div class="row">
+                <div class="col-sm">
+                    <label class="d-flex justify-content-center">Groupe</label>
+                    <select name="groupe" class="form-control">
+                        <option value="-1" {% if groupeSelectionne == -1 %}selected{% endif %}>Tous les groupes</option>
+                        {% for groupe in groupes %}
+                            <option value="{{ groupe.id }}" {% if groupeSelectionne == groupe.id %}selected{% endif %}>{{ groupe.annee }} - {{ groupe.nomGroupe }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <label class="d-flex justify-content-center">Matière</label>
+                    <select name="matiere" class="form-control">
+                        <option value="-1" {% if matiereSelectionnee == -1 %}selected{% endif %}>Toutes les matières</option>
+                        {% for matiere in matieres %}
+                            <option value="{{ matiere.id }}" {% if matiereSelectionnee == matiere.id %}selected{% endif %}>{{ matiere.nomMatiere }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" style="margin-top:10px;">
+                <button type="submit" class="btn btn-secondary">Trier</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Absences injustifiées</h2>
+        {% if absencesInjustifiees is empty %}
+            <strong>Vous n'avez aucune absence injustifiée.</strong>
+        {% else %}
+            <table class="table">
+                <thead class="table-danger">
+                    <td>Date</td>
+                    <td>Matière</td>
+                    <td>Professeur</td>
+                </thead>
+                <tbody class="bg-light">
+                    {% for absence in absencesInjustifiees %}
+                        <tr>
+                            <td>{{ absence.seance.date }}</td>
+                            <td>{{ absence.seance.matiere.nomMatiere }}</td>
+                            <td>{{ absence.seance.professeur.prenomProfesseur }} {{ absence.seance.professeur.nomProfesseur }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h2>Absences justifiées</h2>
+        {% if absencesJustifiees is empty %}
+            <strong>Vous n'avez aucune absence justifiée.</strong>
+        {% else %}
+            <table class="table">
+                <thead class="table-success">
+                <td>Date</td>
+                <td>Matière</td>
+                <td>Professeur</td>
+                <td>Justification</td>
+                </thead>
+                <tbody class="bg-light">
+                {% for absence in absencesJustifiees %}
+                    <tr>
+                        <td>{{ absence.seance.date }}</td>
+                        <td>{{ absence.seance.matiere.nomMatiere }}</td>
+                        <td>{{ absence.seance.professeur.prenomProfesseur }} {{ absence.seance.professeur.nomProfesseur }}</td>
+                        <td>{{ absence.justification }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}

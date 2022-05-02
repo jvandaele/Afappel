@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Créer une matière </h1>
+
+    <form action="{{ path('admin.matieres.createSubmit') }}" class="p-3 mb-2 bg-light" method="post" style="border-radius:5px;">
+        <div class="row d-flex justify-content-center m-3" style="margin-top:20px;">
+            <div class="col d-flex flex-column m-1">
+                <label for="nomMatiere">Nom</label>
+                <input type="text" name="nomMatiere" required>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success m-1">Créer</button>
+        </div>
+    </form>
+
+{% endblock %}

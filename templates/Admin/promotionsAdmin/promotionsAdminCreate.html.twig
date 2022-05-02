@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h1> Créer une promotion </h1>
+
+    <form action="{{ path("admin.promotions.submitCreate") }}" method="post" class="p-3 mb-2 bg-light" style="border-radius:5px;">
+        <div class="row">
+            <div class="col d-flex flex-column m-1">
+                <label for="nom">Nom</label>
+                <input name="nom" type="text" required>
+            </div>
+            <div class="col d-flex flex-column m-1">
+                <label for="actuelle">Promotion Actuelle</label>
+                <input name="actuelle" type="checkbox">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex flex-column m-1">
+                <label for="periode">Période</label>
+                <select name="periode">
+                    <option value="0">S1-S3</option>
+                    <option value="1">S2-S4</option>
+                </select>
+            </div>
+            <div class="col d-flex flex-column m-1">
+                <label for="annee">Année</label>
+                <select name="annee">
+                    {% for i in 1970..2100 %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center m-3">
+            <button type="submit" class="btn btn-success">Créer</button>
+        </div>
+    </form>
+
+{% endblock %}
